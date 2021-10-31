@@ -12,13 +12,13 @@ module Recipes
         set_unit
         set_amount
         set_name
-      end
+      end.transform_values(&:presence)
     end
 
     private
 
     def set_unit
-      @ingredient_info[:unit] = parsed_amount[:unit]
+      @ingredient_info[:unit] = parsed_amount[:unit]&.singularize
     end
 
     def set_amount
@@ -30,7 +30,7 @@ module Recipes
     end
 
     def parsed_description
-      @parsed_description ||= (description&.match(/(?<amount>.+?)\s(?<name>.+)/) || {})
+      @parsed_description ||= (description&.match(/((?<amount>\d.*?)\s)?(?<name>.+)/) || {})
     end
 
     def parsed_amount

@@ -32,7 +32,8 @@ module Recipes
     end
 
     def import_ingredient_unit!
-      @ingredient_unit = IngredientUnit.find_or_create_by!(name: ingredient_info[:unit])
+      unit_name = ingredient_info[:unit] || 'absolute'
+      @ingredient_unit = IngredientUnit.find_or_create_by!(name: unit_name)
     end
 
     def import_recipe_step!
@@ -42,7 +43,7 @@ module Recipes
     def recipe_step_params
       { ingredient: ingredient,
         ingredient_unit: ingredient_unit,
-        ingredient_amount: @ingredient_info[:amount],
+        ingredient_amount: @ingredient_info[:amount] || 1,
         recipe: recipe,
         step_number: step_number }
     end
