@@ -1,1 +1,19 @@
 <h1>Recipes</h1>
+
+<div class='flex flex-row'>
+  <div class='flex flex-column my-products'>
+    <h2>My products</h2>
+    <%= form_tag search_recipes_path, remote: true do  %>
+      <%= text_area_tag :products, '', { rows: 8, placeholder: "New line separated list of products" } %>
+      <button class="flex" type="submit">Search for recipes</button>
+    <% end %>
+  </div>
+
+  <div class='flex flex-column'>
+    <h2>Recipes I can cook</h2>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+    </ul>
+  </div>
+</div>

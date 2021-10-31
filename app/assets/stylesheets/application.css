@@ -13,3 +13,26 @@
  *= require_tree .
  *= require_self
  */
+
+h1, h2 {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.my-products textarea {
+  width: 100%;
+  font-size: 1.1em;
+}
