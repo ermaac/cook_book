@@ -1,0 +1,7 @@
+<li>
+  <p><%= ingredient_description(recipe_step) %></p>
+  <% if recipe_step.notes.present? %>
+    <label>Notes: </label>
+    <p><%= recipe_step.notes %></p>
+  <% end %>
+</li>

@@ -12,7 +12,8 @@ class RecipesFinder
     return [] unless products.present? && products_regexp.present?
 
     available_ingredients = Ingredient.where('ingredients.name ~ ?', products_regexp)
-    Recipe.joins(:steps).group('recipes.id').having(WITH_INGREDIENTS_QUERY, available_ingredients.ids)
+    Recipe.includes(steps: [:ingredient, :ingredient_unit]).joins(:steps).group('recipes.id')
+          .having(WITH_INGREDIENTS_QUERY, available_ingredients.ids)
   end
 
   private

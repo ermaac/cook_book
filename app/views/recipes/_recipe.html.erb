@@ -1,4 +1,10 @@
 <div class="flex flex-column recipe">
-  <label>Name: </label>
+  <span>Name: </span>
   <span><%= recipe.name %></span>
+  <br>
+
+  <label>Ingredients: </label>
+  <ul class="ingredients">
+    <%= render collection: recipe.steps, partial: 'ingredient', as: :recipe_step %>
+  </ul>
 </div>
