@@ -35,6 +35,8 @@ module CookBook
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-    config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 end

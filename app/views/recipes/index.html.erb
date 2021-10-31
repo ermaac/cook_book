@@ -4,8 +4,8 @@
   <div class='flex flex-column my-products'>
     <h2>My products</h2>
     <%= form_tag recipes_path do  %>
-      <%= text_area_tag :products, '', { rows: 8, placeholder: "New line separated list of products" } %>
-      <button class="flex" type="submit">Search for recipes</button>
+      <%= text_area_tag :products, @products, { rows: 8, placeholder: "New line separated list of products" } %>
+      <button id="search-recipes" type="submit">Search for recipes</button>
     <% end %>
   </div>
 

@@ -20,8 +20,7 @@ h1, h2 {
 
 .flex {
   display: flex;
-  flex-grow: 1;
-  flex-direction: column;
+  column-gap: 20px;
 }
 
 .flex-row {
@@ -29,10 +28,6 @@ h1, h2 {
 }
 
 .flex-column {
-  flex-direction: column;
-}
-
-.my-products textarea {
   width: 100%;
-  font-size: 1.1em;
+  flex-direction: column;
 }
