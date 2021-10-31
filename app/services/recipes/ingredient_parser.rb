@@ -2,6 +2,8 @@ module Recipes
   class IngredientParser
     attr_reader :description, :ingredient_info
 
+    INGREDIENT_FIELDS = %i[unit amount name notes].freeze
+
     def initialize(description)
       @description = description
       @ingredient_info = {}
@@ -9,28 +11,35 @@ module Recipes
 
     def parse
       ingredient_info.tap do
-        set_unit
-        set_amount
-        set_name
+        INGREDIENT_FIELDS.each { |f| send("parse_#{f}") }
       end.transform_values(&:presence)
     end
 
     private
 
-    def set_unit
-      @ingredient_info[:unit] = parsed_amount[:unit]&.singularize
+    def parse_unit
+      @ingredient_info[:unit] = parsed_amount[:unit]&.strip&.singularize
     end
 
-    def set_amount
+    def parse_amount
       @ingredient_info[:amount] = parsed_amount[:value]&.to_r&.to_f
     end
 
-    def set_name
-      @ingredient_info[:name] = parsed_description[:name]
+    def parse_name
+      @ingredient_info[:name] = parsed_description[:name]&.strip
+    end
+
+    def parse_notes
+      @ingredient_info[:notes] = parsed_description[:notes]&.strip
     end
 
     def parsed_description
-      @parsed_description ||= (description&.match(/((?<amount>\d.*?)\s)?(?<name>.+)/) || {})
+      # TODO: refactor building regexp
+      optional_amount_notes = '(\s\(.+\))?'
+      amount = "(?<amount>\\d[^\\s]*#{optional_amount_notes})?"
+      name = '(?<name>[^()]+)'
+      notes = '(?:\((?<notes>(.+))\))?'
+      @parsed_description ||= (description&.match(/#{amount}\s?#{name}\s?#{notes}/) || {})
     end
 
     def parsed_amount

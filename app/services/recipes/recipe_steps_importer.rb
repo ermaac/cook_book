@@ -45,7 +45,8 @@ module Recipes
         ingredient_unit: ingredient_unit,
         ingredient_amount: @ingredient_info[:amount] || 1,
         recipe: recipe,
-        step_number: step_number }
+        step_number: step_number,
+        notes: @ingredient_info[:notes] }
     end
   end
 end
